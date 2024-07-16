@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { paths } from "@/src/routes/paths";
-import { SplashScreen } from "@/src/shared/loading-screen";
+import { SplashScreen } from "@/app/components/shared/loading-screen";
 
 import { useAuthContext } from "../hooks";
 import { useRouter } from "@/src/routes/hooks";
@@ -22,6 +22,7 @@ export default function AuthGuard({ children, lang }: Props) {
 
 function Container({ children, lang }: Props) {
   const { authenticated } = useAuthContext();
+  console.log(authenticated);
 
   const [checked, setChecked] = useState(false);
   const router = useRouter();
@@ -41,7 +42,7 @@ function Container({ children, lang }: Props) {
 
   useEffect(() => {
     check();
-  }, []);
+  }, [authenticated]);
 
   if (!checked) {
     return null;

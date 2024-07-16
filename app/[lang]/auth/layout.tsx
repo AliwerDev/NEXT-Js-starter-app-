@@ -1,6 +1,9 @@
 "use client";
 import { ReactNode } from "react";
 import { GuestGuard } from "@/src/auth/guard";
+import { Layout, theme } from "antd";
+
+const { Content } = Layout;
 
 type AuthLayoutProps = {
   children: ReactNode;
@@ -10,7 +13,9 @@ type AuthLayoutProps = {
 export default function AuthLayout({ children, params: { lang } }: AuthLayoutProps) {
   return (
     <GuestGuard lang={lang}>
-      <div className="flex min-h-screen items-center justify-center bg-gray-100">{children}</div>
+      <Layout>
+        <Content className="flex min-h-screen items-center justify-center">{children}</Content>
+      </Layout>
     </GuestGuard>
   );
 }

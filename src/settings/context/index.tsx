@@ -22,6 +22,9 @@ export function SettingsProvider({ children }: Props) {
     const storedState = localStorage.getItem(config.storageKey.SETTINGS);
     if (storedState) {
       const parsedState = JSON.parse(storedState);
+      if (parsedState.theme === "dark") document.documentElement.classList.add("dark");
+      else document.documentElement.classList.remove("dark");
+
       setState(parsedState);
     }
   }, []);
@@ -37,6 +40,8 @@ export function SettingsProvider({ children }: Props) {
     if (theme === "dark") document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
 
+    const newState = { ...state, theme };
+    localStorage.setItem(config.storageKey.SETTINGS, JSON.stringify(newState));
     setState((s) => ({ ...s, theme }));
   };
 

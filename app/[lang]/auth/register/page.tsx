@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { Form, Input, Button } from "antd";
-import { LockOutlined } from "@ant-design/icons";
+import { Form, Input, Button, theme } from "antd";
+import { LuUser, LuLock } from "react-icons/lu";
 import Link from "next/link";
 import { paths } from "@/src/routes/paths";
 import { useAuthContext } from "@/src/auth/hooks";
@@ -12,12 +12,17 @@ type Props = {
 
 export default function RegisterPage({ params: { lang } }: Props) {
   const { register } = useAuthContext();
+
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
   const onFinish = (values: any) => {
     register(values);
   };
 
   return (
-    <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg">
+    <div style={{ background: colorBgContainer, borderRadius: borderRadiusLG }} className="w-full max-w-md p-8 shadow-md">
       <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
       <Form name="login" className="login-form" onFinish={onFinish}>
         <Form.Item
@@ -29,7 +34,7 @@ export default function RegisterPage({ params: { lang } }: Props) {
             },
           ]}
         >
-          <Input placeholder="Email" type="email" className="w-full p-2 border rounded" />
+          <Input prefix={<LuUser />} placeholder="Email" type="email" className="w-full p-2 border rounded" />
         </Form.Item>
 
         <Form.Item
@@ -57,7 +62,7 @@ export default function RegisterPage({ params: { lang } }: Props) {
             },
           ]}
         >
-          <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" className="w-full p-2 border rounded" />
+          <Input prefix={<LuLock />} type="password" placeholder="Password" className="w-full p-2 border rounded" />
         </Form.Item>
 
         <Form.Item
@@ -69,7 +74,7 @@ export default function RegisterPage({ params: { lang } }: Props) {
             },
           ]}
         >
-          <Input size="large" prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Confirm password" className="w-full border rounded" />
+          <Input prefix={<LuLock />} type="password" placeholder="Confirm password" className="w-full p-2  border rounded" />
         </Form.Item>
 
         <Form.Item>

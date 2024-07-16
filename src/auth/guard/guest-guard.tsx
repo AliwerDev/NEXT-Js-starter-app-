@@ -3,7 +3,7 @@ import { useEffect, useCallback } from "react";
 
 import { paths } from "@/src/routes/paths";
 import { useAuthContext } from "../hooks";
-import { SplashScreen } from "@/src/shared/loading-screen";
+import { SplashScreen } from "@/app/components/shared/loading-screen";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/src/routes/hooks";
 

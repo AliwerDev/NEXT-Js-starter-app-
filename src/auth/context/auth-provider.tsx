@@ -55,6 +55,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
     case Types.LOGOUT:
       return {
         ...state,
+        status: "uninitialized",
         user: null,
       };
     default:
@@ -154,7 +155,6 @@ export function AuthProvider({ children }: Props) {
   }, []);
 
   useEffect(() => {
-    console.log("Initialized");
     initialize();
   }, []);
 
