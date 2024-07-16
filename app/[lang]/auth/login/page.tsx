@@ -6,7 +6,11 @@ import Link from "next/link";
 import { paths } from "@/src/routes/paths";
 import { useAuthContext } from "@/src/auth/hooks";
 
-export default function LoginPage() {
+type Props = {
+  params: { lang: string };
+};
+
+export default function LoginPage({ params: { lang } }: Props) {
   const { login } = useAuthContext();
 
   const onFinish = (values: any) => {
@@ -47,7 +51,7 @@ export default function LoginPage() {
           </Button>
           <div className="text-center mt-4">
             Don't have an account?
-            <Link href={paths.auth.register} className="text-blue-500 ml-2">
+            <Link href={paths.auth.register(lang)} className="text-blue-500 ml-2">
               Register now!
             </Link>
           </div>

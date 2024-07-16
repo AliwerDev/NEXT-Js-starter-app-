@@ -10,16 +10,17 @@ import { useRouter } from "@/src/routes/hooks";
 
 type Props = {
   children: React.ReactNode;
+  lang: string;
 };
 
-export default function AuthGuard({ children }: Props) {
+export default function AuthGuard({ children, lang }: Props) {
   const { loading } = useAuthContext();
-  return <>{loading ? <SplashScreen /> : <Container>{children}</Container>}</>;
+  return <>{loading ? <SplashScreen /> : <Container lang={lang}>{children}</Container>}</>;
 }
 
 // ----------------------------------------------------------------------
 
-function Container({ children }: Props) {
+function Container({ children, lang }: Props) {
   const { authenticated } = useAuthContext();
 
   const [checked, setChecked] = useState(false);
@@ -31,7 +32,7 @@ function Container({ children }: Props) {
         returnTo: window.location.pathname,
       }).toString();
 
-      const href = `${paths.auth.login}?${searchParams}`;
+      const href = `${paths.auth.login(lang)}?${searchParams}`;
       router.replace(href);
     } else {
       setChecked(true);

@@ -4,11 +4,12 @@ import { GuestGuard } from "@/src/auth/guard";
 
 type AuthLayoutProps = {
   children: ReactNode;
+  params: { lang: string };
 };
 
-export default function AuthLayout({ children }: AuthLayoutProps) {
+export default function AuthLayout({ children, params: { lang } }: AuthLayoutProps) {
   return (
-    <GuestGuard>
+    <GuestGuard lang={lang}>
       <div className="flex min-h-screen items-center justify-center bg-gray-100">{children}</div>
     </GuestGuard>
   );

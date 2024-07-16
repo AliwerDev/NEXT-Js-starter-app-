@@ -5,6 +5,7 @@ import axios, { endpoints } from "@/src/utils/axios";
 import { AuthContext } from "./auth-context";
 import { setStorage } from "./utils";
 import { AuthUserType, AuthStateType, LoginDataType, RegisterDataType, ActionMapType } from "../types";
+import { config } from "@/src/config";
 
 enum Types {
   INITIAL = "INITIAL",
@@ -63,7 +64,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
 
 // ----------------------------------------------------------------------
 
-const STORAGE_KEY = "accessToken";
+const STORAGE_KEY = config.storageKey.TOKEN;
 
 type Props = {
   children: React.ReactNode;
@@ -112,7 +113,7 @@ export function AuthProvider({ children }: Props) {
   const login = useCallback(async (data: LoginDataType) => {
     const res = await axios.post(endpoints.auth.login, data);
 
-    const { token } = get(res, "data.data", {});
+    const { token } = get(res, "data", {});
     setStorage(token);
     initialize();
 
@@ -132,8 +133,6 @@ export function AuthProvider({ children }: Props) {
 
     const { token, user } = res.data;
     localStorage.setItem(STORAGE_KEY, token);
-
-    console.log(user);
 
     dispatch({
       type: Types.REGISTER,
@@ -155,8 +154,9 @@ export function AuthProvider({ children }: Props) {
   }, []);
 
   useEffect(() => {
+    console.log("Initialized");
     initialize();
-  }, [initialize]);
+  }, []);
 
   // ----------------------------------------------------------------------
 
